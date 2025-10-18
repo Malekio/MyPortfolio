@@ -1,0 +1,29 @@
+.contact {
+    width: 100vw; 
+    height: 100vh; 
+
+    background-image: url("/home/malek/projects/theportfolio/public/backgound.png"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+
+    position: relative; 
+}
+
+.contact-content {
+    position: relative; 
+    z-index: 2; 
+    text-align: center;
+    color: black;
+}
+
+.contact-content h1 {
+    font-size: 7rem;
+    margin-bottom: 40rem;
+    font-weight: bold; 
+}
+
