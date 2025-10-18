@@ -1,0 +1,29 @@
+.about {
+    width: 100vw; 
+    height: 100vh; 
+
+    background-image: url('/home/malek/projects/theportfolio/public/backgound.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative; 
+}
+
+.about-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: black;
+}
+
+.about-content h1 {
+    font-size: 8rem; 
+    margin-bottom: 30rem;
+    font-weight: bold; 
+}
+
