@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .projects {
     width: 100vw;
     height: 100vh;
@@ -22,6 +24,7 @@
 }
 
 .projects-content h1 {
+    font-family: "Anton", sans-serif; 
     font-size: 4rem;
     margin-bottom: 30rem;
     color: black; 
