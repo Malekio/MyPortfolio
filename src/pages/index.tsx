@@ -11,7 +11,6 @@ import {
   MonitorSmartphone,
 } from "lucide-react";
 import { TriangleDownIcon } from "@radix-ui/react-icons";
-import Spline from "@splinetool/react-spline";
 import Link from "next/link";
 import { cn, scrollTo } from "@/lib/utils";
 import Image from "next/image";
@@ -27,16 +26,25 @@ import {
 import VanillaTilt from "vanilla-tilt";
 import { motion } from "framer-motion";
 import { Archivo_Black } from "next/font/google";
+import FlowingMenu from "@/components/FlowingMenu";
+import PillNav from "@/components/PillNav";
 
 const archivoBlack = Archivo_Black({
   subsets: ["latin"],
   weight: "400",
 });
 
+const demoItems = [
+  { link: 'https://leetcode.com/u/Malekio/', text: 'LeetCode', image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop&auto=format' },
+  { link: 'https://github.com/Malekio', text: 'Github', image: 'https://images.unsplash.com/photo-1618477247222-acbdb0e159b3?w=600&h=400&fit=crop&auto=format' },
+  { link: 'https://linkedin.com/in/malekio', text: 'LinkedIn', image: 'https://images.unsplash.com/photo-1611944212129-29977ae1398c?w=600&h=400&fit=crop&auto=format' },
+  { link: '/resume.pdf', text: 'Download Resume', image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop&auto=format' }
+];
+
 const aboutStats = [
   { label: "Years of experience", value: "3+" },
   { label: "Technologies mastered", value: "5+" },
-  { label: "Companies worked with", value: "15+" },
+  { label: "Longest Github Streaks", value: "36 days" },
 ];
 
 const projects = [
@@ -74,9 +82,15 @@ const projects = [
 
 const services = [
   {
+    service: "Backend Development",
+    description:
+      "Developing robust, scalable server-side logic for a wide range of web applications.",
+    icon: Eye,
+  },
+  {
     service: "Frontend Development",
     description:
-      "Creating stellar user interfaces and web experiences using the latest technologies.",
+      "Build user interfaces and web experiences using AI and Vibe coding with the latest technologies.",
     icon: Code2,
   },
   {
@@ -86,37 +100,27 @@ const services = [
     icon: Frame,
   },
   {
-    service: "SEO Optimization",
+    service: "Cyber Security",
     description:
-      "Enhancing your website's visibility in search engines for increased organic traffic.",
+      "I am always trying to build secure systems and implement best practices to protect applications from vulnerabilities.",
     icon: SearchCheck,
   },
   {
-    service: "Responsive Design",
+    service: "3rd Year Student",
     description:
-      "Designing websites that look and perform equally well on all devices and screen sizes.",
+      "Computer science student with interests in everything from computing to databases to networking to cloud to security to AI and beyond.",
     icon: MonitorSmartphone,
-  },
-  {
-    service: "Backend Development",
-    description:
-      "Developing robust, scalable server-side logic for a wide range of web applications.",
-    icon: Eye,
   },
 ];
 
 export default function Home() {
   const refScrollContainer = useRef(null);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
   // handle scroll
   useEffect(() => {
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".nav-link");
-
     async function getLocomotive() {
       const Locomotive = (await import("locomotive-scroll")).default;
       new Locomotive({
@@ -125,33 +129,7 @@ export default function Home() {
       });
     }
 
-    function handleScroll() {
-      let current = "";
-      setIsScrolled(window.scrollY > 0);
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (window.scrollY >= sectionTop - 250) {
-          current = section.getAttribute("id") ?? "";
-        }
-      });
-
-      navLinks.forEach((li) => {
-        li.classList.remove("nav-active");
-
-        if (li.getAttribute("href") === `#${current}`) {
-          li.classList.add("nav-active");
-          console.log(li.getAttribute("href"));
-        }
-      });
-    }
-
     void getLocomotive();
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   useEffect(() => {
@@ -180,7 +158,24 @@ export default function Home() {
 
   return (
     <Container>
-      <div ref={refScrollContainer}>
+      <PillNav
+        logo=""
+        logoAlt=""
+        items={[
+          { label: 'Home', href: '#home' },
+          { label: 'About', href: '#about' },
+          { label: 'Projects', href: '#projects' },
+          { label: 'Contact', href: '#contact' }
+        ]}
+        activeHref="#home"
+        className="custom-nav"
+        ease="power2.easeOut"
+        baseColor="#ffffff"
+        pillColor="#060010"
+        hoveredPillTextColor="#ffffff"
+        pillTextColor="#ffffff"
+      />
+      <div ref={refScrollContainer} className={archivoBlack.className}>
         <Gradient />
 
         {/* Intro */}
@@ -190,7 +185,7 @@ export default function Home() {
           className="mt-40 flex w-full flex-col items-center xl:mt-0 xl:min-h-screen xl:flex-row xl:justify-between"
         >
           <div className={styles.intro}>
-            <div
+            {/* <div
               data-scroll
               data-scroll-direction="horizontal"
               data-scroll-speed=".09"
@@ -200,7 +195,7 @@ export default function Home() {
               <span className={styles.pill}>python</span>
               <span className={styles.pill}>java</span>
               <span className={styles.pill}>sql</span>
-            </div>
+            </div> */}
             <div>
               <h1
                 data-scroll
@@ -245,7 +240,6 @@ export default function Home() {
             <div
               className={cn(
                 styles.scroll,
-                isScrolled && styles["scroll--hidden"],
               )}
             >
               Scroll to discover{" "}
@@ -283,7 +277,7 @@ export default function Home() {
                   key={stat.label}
                   className="flex flex-col items-center text-center xl:items-start xl:text-start"
                 >
-                  <span className="clash-grotesk text-gradient text-4xl font-semibold tracking-tight xl:text-6xl">
+                  <span className="text-gradient text-4xl font-semibold tracking-tight xl:text-6xl">
                     {stat.value}
                   </span>
                   <span className="tracking-tight text-muted-foreground xl:text-lg">
@@ -313,10 +307,10 @@ export default function Home() {
             </div>
           </div>
           <div data-scroll data-scroll-speed=".4" className="my-64">
-            <span className="text-gradient clash-grotesk text-sm font-semibold tracking-tighter">
-              ✨ Projects
+            <span className="text-gradient text-5xl font-semibold tracking-tighter">
+              ✨ Projects  <br />
             </span>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight tracking-tighter xl:text-6xl">
+            <h2 className="mt-3 text-4xl font-semibold tracking-tighter xl:text-6xl">
               Streamlined digital experiences.
             </h2>
             <p className="mt-1.5 text-base tracking-tight text-muted-foreground xl:text-lg">
@@ -391,13 +385,13 @@ export default function Home() {
                 staggerChildren: 0.5,
               }}
               viewport={{ once: true }}
-              className="grid items-center gap-1.5 md:grid-cols-2 xl:grid-cols-3"
+              className="space-y-12"
             >
-              <div className="flex flex-col py-6 xl:p-6">
+              <div className="flex flex-col text-left">
                 <h2 className="text-4xl font-medium tracking-tight">
                   Need more info?
                   <br />
-                  <span className="text-gradient clash-grotesk tracking-normal">
+                  <span className="text-gradient tracking-normal">
                     I got you.
                   </span>
                 </h2>
@@ -406,10 +400,13 @@ export default function Home() {
                   questions, feel free to reach out.
                 </p>
               </div>
+
+              {/* Services grid */}
+              <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
               {services.map((service) => (
                 <div
                   key={service.service}
-                  className="flex flex-col items-start rounded-md bg-white/5 p-14 shadow-md backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md"
+                  className="flex flex-col items-start rounded-md bg-white/5 p-14 shadow-md backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-md h-full"
                 >
                   <service.icon className="my-6 text-primary" size={20} />
                   <span className="text-lg tracking-tight text-foreground">
@@ -420,6 +417,17 @@ export default function Home() {
                   </span>
                 </div>
               ))}
+              </div>
+              
+              {/* Massive spacing and separator */}
+              <div className="py-32 md:py-48 lg:py-64">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-32"></div>
+                
+                {/* Full-width FlowingMenu */}
+                <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative">
+                  <FlowingMenu items={demoItems} />
+                </div>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -434,7 +442,7 @@ export default function Home() {
           >
             <h2 className="text-4xl font-medium tracking-tighter xl:text-6xl">
               Let&apos;s work{" "}
-              <span className="text-gradient clash-grotesk">together.</span>
+              <span className="text-gradient">together.</span>
             </h2>
             <p className="mt-1.5 text-base tracking-tight text-muted-foreground xl:text-lg">
               I&apos;m currently available for freelance work and open to

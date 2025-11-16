@@ -3,16 +3,18 @@ import { type AppType } from "next/dist/shared/lib/utils";
 import "@/styles/globals.css";
 import "@/styles/locomotive-scroll.css";
 
-import { DM_Sans } from "next/font/google";
+import { Archivo_Black } from "next/font/google";
 
-const dmSans = DM_Sans({
+const archivoBlack = Archivo_Black({
   display: "swap",
   subsets: ["latin"],
+  weight: "400",
+  variable: "--font-archivo-black",
 });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div lang={"en"} className={dmSans.className}>
+    <div lang={"en"} className={`${archivoBlack.variable} font-sans`}>
       <Component {...pageProps} />
     </div>
   );
