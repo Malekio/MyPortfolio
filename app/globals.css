@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-nb-yellow: #FFDE17;
+  --color-nb-black: #0F0F11;
+  --color-nb-green: #00E575;
+  --color-nb-pink: #FF4F9A;
+  --color-nb-blue: #2E69FF;
+  --color-nb-orange: #FF6A00;
+  --color-nb-card-yellow: #FFDE17;
+  --color-nb-white: #FFFFFF;
+  --color-nb-dark: #141416;
+  --color-nb-purple: #A855F7;
+  
+  --font-heading: var(--font-archivo-black), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-sans: var(--font-space-grotesk), sans-serif;
+  
+  --shadow-brutal-sm: 3px 3px 0px #000000;
+  --shadow-brutal: 5px 5px 0px #000000;
+  --shadow-brutal-lg: 8px 8px 0px #000000;
+  --shadow-brutal-xl: 12px 12px 0px #000000;
+  --shadow-brutal-active: 1px 1px 0px #000000;
+}
+
+/* Neo-brutalist base utilities & micro-interactions */
+body {
+  background-color: #FFDE17;
+  color: #0F0F11;
+  font-family: var(--font-space-grotesk), sans-serif;
+  overflow-x: hidden;
+  background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
+/* Hide scrollbar while allowing scroll */
+body::-webkit-scrollbar {
+  display: none;
+}
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Loot-drop custom tilt angles */
+.tilt-neg-1 { transform: rotate(-1.2deg); }
+.tilt-pos-1 { transform: rotate(1.2deg); }
+.tilt-neg-2 { transform: rotate(-2deg); }
+.tilt-pos-2 { transform: rotate(2deg); }
+.tilt-none { transform: rotate(0deg); }
+
+.tilt-hover {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s cubic-bezier(0.2, 0, 0, 1);
+}
+.tilt-hover:hover {
+  transform: translate(-3px, -3px) rotate(0deg) scale(1.01);
+  box-shadow: 10px 10px 0px #000000;
+}
+.tilt-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* CRT scanline subtle grid ticker */
+.brutal-border {
+  border: 3.5px solid #000000;
+}
+.brutal-border-thick {
+  border: 4.5px solid #000000;
+}
+.brutal-border-sm {
+  border: 2.5px solid #000000;
+}
+.brutal-border-b {
+  border-bottom: 4.5px solid #000000;
+}
+
+/* Custom marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 22s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* @media (min-width: 768px) {
+  body, a, button, [role="button"] {
+    cursor: none !important;
+  }
+} */
+
+@media (min-width: 768px) {
+  body, a, button, [role="button"], input, select, textarea {
+    cursor: url('/brutal-cursor.svg') 0 0, auto !important;
+  }
+}
